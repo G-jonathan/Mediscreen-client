@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head th:replace="~{Fragments :: fragment-head}"></head>
+    <body>
+        <div class="container">
+            <div th:replace="~{Fragments :: fragment-header}" />
+            <div th:replace="~{Fragments :: fragment-navbar}" />
+            <form th:action="@{/patient/update/{id}(id=${patient.id})}" th:object="${patient}" method="post" onsubmit="return confirm('Are you sure you want to update this patient?')">
+                <div class="form-group row">
+                    <label for="family">Family Name:</label>
+                    <input class="form-control" type="text" id="family" th:field="*{family}"><br><br>
+                    <span class="invalid_data" th:errors="*{family}"></span>
+                </div>
+                <div class="form-group row">
+                    <label for="given">Given Name:</label>
+                    <input class="form-control" type="text" id="given" th:field="*{given}"><br><br>
+                    <span class="invalid_data" th:if="${#fields.hasErrors('given')}" th:errors="*{given}"></span>
+                </div>
+                <div class="form-group row">
+                    <label for="dob">Date of Birth:</label>
+                    <input class="form-control" type="date" id="dob" th:field="*{dob}">
+                    <span class="invalid_data" th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"></span>
+                </div>
+                <div class="form-group row">
+                    <label for="sex">Sex:</label>
+                    <select id="sex" name="sex" th:field="*{sex}" required>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                    </select><br><br>
+                    <span class="invalid_data" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}"></span>
+                </div>
+                <div class="form-group row">
+                    <label for="address">Address:</label>
+                    <input class="form-control" type="text" id="address" th:field="*{address}">
+                    <span class="invalid_data" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+                </div>
+                <div class="form-group row">
+                    <label for="phone">Phone number:</label>
+                    <input class="form-control" type="text" id="phone" placeholder="e.g. 1234567890 or 111-222-3333" th:field="*{phone}">
+                    <span class="invalid_data" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+                </div>
+                <div style="margin-top : 1%">
+                    <button class="btn btn-primary btn-lg" type="submit">Submit</button>
+                </div>
+            </form>
+            <div th:replace="~{Fragments :: fragment-footer}" />
+        </div>
+    </body>
+</html>

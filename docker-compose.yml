@@ -1,0 +1,83 @@
+version: '3'
+services:
+  mediscreen-client:
+    image: mediscreen-client
+    ports:
+      - "8080:8080"
+    environment:
+      - NOTE_API_URL=http://mediscreen-notes:8082
+      - PATIENT_API_URL=http://mediscreen-patient:8081
+      - REPORT_API_URL=http://mediscreen-report:8083
+    depends_on:
+      - mediscreen-patient
+      - mediscreen-notes
+      - mediscreen-report
+    networks:
+      - mediscreen-network
+
+  mediscreen-patient:
+    image: mediscreen-patient
+    container_name: "mediscreen-patient"
+    depends_on:
+      mediscreen-patient-db:
+        condition: service_started
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mediscreen-patient-db:3306/mediscreen_patient
+      - SPRING_DATASOURCE_USERNAME=test
+      - SPRING_DATASOURCE_PASSWORD=test
+    networks:
+      - mediscreen-network
+
+  mediscreen-notes:
+    image: mediscreen-notes
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mediscreen-notes-db:27017/mediscreen_notes
+    depends_on:
+      - mediscreen-notes-db
+    networks:
+      - mediscreen-network
+
+  mediscreen-report:
+    image: mediscreen-report
+    ports:
+      - "8083:8083"
+    depends_on:
+      - mediscreen-patient
+      - mediscreen-notes
+    networks:
+      - mediscreen-network
+
+  mediscreen-patient-db:
+    image: mediscreen-patient-db
+    container_name: "mediscreen-patient-db"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=mediscreen_patient
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+    volumes:
+      - sql-data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    networks:
+      - mediscreen-network
+
+  mediscreen-notes-db:
+    image: mediscreen-notes-db
+    container_name: "mediscreen-notes-db"
+    volumes:
+      - ./mongo-data:/data/db
+    ports:
+      - "27018:27017"
+    networks:
+      - mediscreen-network
+
+networks:
+  mediscreen-network:
+
+volumes:
+  sql-data:

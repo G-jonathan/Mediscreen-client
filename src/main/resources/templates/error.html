@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{Fragments :: fragment-head}"></head>
+  <body>
+    <div class="container">
+      <div th:replace="~{Fragments :: fragment-header}" />
+      <div th:replace="~{Fragments :: fragment-navbar}" />
+      <h1>Error</h1>
+      <p th:text="${errorMessage}"></p>
+    </div>
+  </body>
+</html>
