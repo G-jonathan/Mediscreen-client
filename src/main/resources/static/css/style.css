@@ -1,0 +1,22 @@
+nav.navbar {
+    background-color: #00849A;
+    justify-content: center;
+    margin-bottom: 5%;
+}
+
+nav.navbar a {
+    color: black;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: large;
+}
+
+nav.navbar a:hover {
+    background-color: #ddd;
+}
+
+footer {
+    background-color: #00849A;
+      text-align: center;
+      margin-top: 5%;
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head th:replace="~{Fragments :: fragment-head}"></head>
+    <body>
+        <div class="container">
+            <div th:replace="~{Fragments :: fragment-header}" />
+            <div th:replace="~{Fragments :: fragment-navbar}" />
+            <div>
+                <p>Patient Family : <span th:text="${patient.family}"></span></p>
+                <p>Patient Given : <span th:text="${patient.given}"></span></p>
+            </div>
+            <form th:action="@{/note/validate/{patientId}(patientId=${patient.id})}" method="post">
+                <input type="hidden" th:field="*{patientId}" th:value="${patient.id}"  />
+                <textarea class="form-control z-depth-1" id="textAreaComment" rows="3" th:field="*{note.comment}" placeholder="Enter note here" required></textarea>
+                <button style="margin-top: 1%" type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </body>
+</html>

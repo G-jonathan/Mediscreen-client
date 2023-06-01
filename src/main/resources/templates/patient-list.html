@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head th:replace="~{Fragments :: fragment-head}"></head>
+    <body>
+        <div class="container">
+            <div th:replace="~{Fragments :: fragment-header}" />
+            <div th:replace="~{Fragments :: fragment-navbar}" />
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th >ID</th>
+                        <th>Family</th>
+                        <th>Given</th>
+                        <th>Dob</th>
+                        <th>Sex</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="patient : ${patientList}">
+                        <td th:text="${patient.id}"></td>
+                        <td th:text="${patient.family}"></td>
+                        <td th:text="${patient.given}"></td>
+                        <td th:text="${patient.dob}"></td>
+                        <td th:text="${patient.sex}"></td>
+                        <td th:text="${patient.address}"></td>
+                        <td th:text="${patient.phone}"></td>
+                        <td>
+                            <a th:href="@{/patient/{id}(id=${patient.id})}">Details</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div th:replace="~{Fragments :: fragment-footer}" />
+        </div>
+    </body>
+</html>
