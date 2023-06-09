@@ -8,6 +8,7 @@ services:
       - NOTE_API_URL=http://mediscreen-notes:8082
       - PATIENT_API_URL=http://mediscreen-patient:8081
       - REPORT_API_URL=http://mediscreen-report:8083
+      - TZ=Europe/Paris
     depends_on:
       - mediscreen-patient
       - mediscreen-notes
@@ -27,6 +28,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mediscreen-patient-db:3306/mediscreen_patient
       - SPRING_DATASOURCE_USERNAME=test
       - SPRING_DATASOURCE_PASSWORD=test
+      - TZ=Europe/Paris
     networks:
       - mediscreen-network
 
